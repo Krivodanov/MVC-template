@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+{% block title %}{{title}}{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <main role="main" class="container" style="max-width: 350px">
+        <header>
+            <h5>{{title}}</h5>
+        </header>
+        <p>Автор: Криводанов Евгений</p>
+        <p></p>
+        <p></p>
+    </main>
+{% endblock %}

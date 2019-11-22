@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    {% block head %}
+    <head>
+        <title>MVC:{% block title %}Заголовок{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+    </head>
+    {% endblock %}
+    <body>
+    {% block body %}
+        <h4>Не переопределен блок body в дочернем шаблоне</h4>
+    {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+{% block title %}{{title}}{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <main role="main" class="container text-center">
+        <div class="row mt-5">
+            <div class="col-12">
+                <header>
+                    <p>Реализации архитектурного паттерна</p>
+                    <h1 class="display-1"><strong>MVC</strong></h1>
+                </header>
+            </div>
+        </div>
+        <div class="row mt-5 justify-content-center">
+            <div class="col-lg-2 col-md-3 col-xs-12 mt-1">
+                <a class="btn btn-primary" href="about">О приложении</a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-xs-12 mt-1">
+                <a class="btn btn-primary" href="auth/login">Авторизация</a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-xs-12 mt-1">
+                <a class="btn btn-primary" href="auth/registration">Регистрация</a>
+            </div>
+        </div>
+        
+    </main>
+{% endblock %}
