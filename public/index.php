@@ -1,5 +1,4 @@
 <?php
-require '..\app\autoload.php';
 require '..\vendor\autoload.php';
 use MVC\App\Request;
 use MVC\App\Response;
@@ -18,6 +17,10 @@ switch (Request::route()) {
     //Стартовая страница
     case '': 
         Response::view('index.html.twig', ['title'=>'Стартовая страница']);
+        break;
+    //Страница о приложении
+    case 'about': 
+        Response::view('about.html.twig', ['title'=>'О приложении']);
         break;
     //Авторизация пользователя
     case 'auth/login':

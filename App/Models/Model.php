@@ -11,7 +11,7 @@ class Model {
     protected $condition;
     public function __construct() {
         $host = "127.0.0.1"; //Хост базы данных
-        $database = "comments"; //Имя базы данных
+        $database = "mvc"; //Имя базы данных
         $dbuser = "root"; //Имя пользователя базы данных
         $dbpassword = ""; //Пароль доступа к базе данных
         $this->DB = mysqli_connect($host, $dbuser, $dbpassword, $database); //Подключение к базе данных
@@ -62,12 +62,6 @@ class Model {
             foreach ($result as $key => $value) {
                 $result_array[$key]=$value;
             }
-            /*foreach ($result as $key=>$value) {
-                $result1[$key]= new class {};
-                foreach ($value as $key1=>$value1) {
-                    $result1[$key]->{$key1}=$value1;
-                }
-            }*/
             return $result_array;
         }
         return $result;
