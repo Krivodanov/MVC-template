@@ -1,5 +1,8 @@
 <?php
 namespace MVC\App;
+
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 /**
  * Класс содержит методы для отправки ответа
  */
@@ -12,8 +15,8 @@ class Response {
     public static function view($template, $arrayData){
         $cache = '..\view\compilation_cache';
         $cache = false; //Отключение кеширования шаблонизатора
-        $loader = new \Twig_Loader_Filesystem('..\view');
-        $twig = new \Twig_Environment($loader, array(
+        $loader = new FilesystemLoader(__DIR__.'/view');
+        $twig = new Environment($loader, array(
             'cache' => $cache,
         ));
         echo $twig->render($template, $arrayData);

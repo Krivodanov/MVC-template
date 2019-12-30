@@ -1,6 +1,9 @@
 RewriteEngine on
 # не позволять httpd отдавать файлы, начинающиеся с точки (.htaccess, .svn, .git и прочие)
 RedirectMatch 403 /\..*$
+# закрываем доступ к каталогам(и их содержимому) "/app" и "/vendor", (?i)-отключает чувствительность к регистру
+RedirectMatch 403 (?i)^/app/.*$
+RedirectMatch 403 (?i)^/vendor/.*$
 # если директория или файл существуют, использовать их напрямую
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

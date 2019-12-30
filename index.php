@@ -1,5 +1,6 @@
 <?php
-require '..\vendor\autoload.php';
+require __DIR__.'/vendor/autoload.php';
+
 use MVC\App\Request;
 use MVC\App\Response;
 use MVC\App\Controllers\User;
