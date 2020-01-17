@@ -1,6 +1,7 @@
 <?php
 namespace MVC\App;
 
+use MVC\App\Config;
 /**
  * Класс содержит методы для отправки ответа
  */
@@ -53,7 +54,7 @@ class Response {
     }
 
     public static function sessionStart() {
-        session_start(['cookie_lifetime' => 6048000]); //Время хранения сессии 70 дней
+        session_start(['cookie_lifetime' => Config::SESS_TIME]);
         if (empty($_SESSION['sessid'])) {
             $_SESSION['sessid']= md5($_SERVER['REMOTE_ADDR'].time()); //Генерация sessid для авторизации
         }
