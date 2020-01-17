@@ -1,25 +1,18 @@
 <?php
 namespace MVC\App;
 
-use Twig\Environment;
-use Twig\Loader\FilesystemLoader;
 /**
  * Класс содержит методы для отправки ответа
  */
 class Response {
+    public static $twig;
     /**
-    * Метод использует шаблонизатор Twig для отправке ответа в виде HTML
+    * Метод использует шаблонизатор Twig для отправки ответа в виде HTML
     * @param $template Имя файла шаблона
     * @param $arrayData Ассациативный массив с данными для шаблона
     */
     public static function view($template, $arrayData){
-        $cache = '..\view\compilation_cache';
-        $cache = false; //Отключение кеширования шаблонизатора
-        $loader = new FilesystemLoader(__DIR__.'/view');
-        $twig = new Environment($loader, array(
-            'cache' => $cache,
-        ));
-        echo $twig->render($template, $arrayData);
+        echo self::$twig->render($template, $arrayData);
     }
     /**
      * Метод отправляет заголовок с кодом состояния REDIRECT (302) на в параметре указанный маршрут
@@ -58,4 +51,12 @@ class Response {
                 . ' style-src self http://'.$_SERVER['HTTP_HOST'].';'
                 . ' img-src self http://'.$_SERVER['HTTP_HOST'].';');
     }
+
+    public static function sessionStart() {
+        session_start(['cookie_lifetime' => 6048000]); //Время хранения сессии 70 дней
+        if (empty($_SESSION['sessid'])) {
+            $_SESSION['sessid']= md5($_SERVER['REMOTE_ADDR'].time()); //Генерация sessid для авторизации
+        }
+    }
+
 }

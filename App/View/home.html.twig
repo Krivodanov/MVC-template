@@ -8,9 +8,9 @@
         <header>
             <h5>{{title}}</h5>
         </header>
-        <p>Имя: {{ name }}</p>
-        <p>Email: {{ email }}</p>
-        <p>Дата регистрации: {{ date }}</p>
+        <p>Имя: {{ user.name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Дата регистрации: {{ user.created_at }}</p>
         <a class="btn btn-primary" href="auth/logout">Выход</a>
         <a class="btn btn-primary" href="/">Главная страница</a>
     </main>

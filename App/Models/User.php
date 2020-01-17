@@ -2,17 +2,10 @@
 
 namespace MVC\App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 /**
- * Модель User наследуется от родительской модели Model 
- * содержит методы обработки данных пользователя CRUD
+ * Модель User наследуется от Illuminate\Database\Eloquent\Model
  */
 class User extends Model {
-    /**
-     * __construct задает свойство модели tableName = "users"
-     */
-    public function __construct() {
-        parent::__construct();
-        $this->tableName = "users";
-    }
     
 }

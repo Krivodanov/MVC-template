@@ -3,13 +3,6 @@ namespace MVC\App\Controllers;
 use MVC\App\Models\User;
 /**
  * Класс содержит методы реалицации авторизации на сайте.
- * 
- * Метод авторизации Login
- * 
- * Метод регистрации Registration
- * 
- * Метод проверки активности сессии Active
- * 
  */
 class Auth {
     /**
@@ -22,16 +15,12 @@ class Auth {
      * в случае не верных данных FALSE 
      */
     public static function login ($request) {
-        $User = new User();
-        $result = $User->select()
-                    ->where('email', '=', $request->email)
-                    ->where('password', '=', md5($request->password))
-                    ->Execute();
-        if (gettype($result)=='array') {
-            $User->update(['sessid'=>$_SESSION['sessid']])
-                ->where('email', '=', $request->email)
-                ->where('password', '=', md5($request->password))
-                ->Execute();
+        $user = User::where('email', '=', $request->email)
+            ->where('password', '=', md5($request->password))
+            ->first();
+        if ($user) {
+            $user->sessid = $_SESSION['sessid'];
+            $user->save();
             return true;
         } else {
             return false;
@@ -47,16 +36,17 @@ class Auth {
      * в случае ошибки FALSE 
      */    
     public static function registration ($request){
-        $User = new User();
-        $result = $User->select()->where('sessid', '=', $_SESSION['sessid'])->Execute();
-        if ($result==null) {
-            $User->insert([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'password'=>md5($request->password),
-                'sessid'=>$_SESSION['sessid']])->execute();
+        $user = User::where('email', $request->email)->first();
+        if ($user === null) {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = md5($request->password);
+            $user->sessid = $_SESSION['sessid'];
+            $user->save();
             return true;
         } else {
+            //Пользователь с таким email существует
             return false;
         }
     }
@@ -69,8 +59,9 @@ class Auth {
      */ 
     public static function logout ($sessid='') {
         if ($sessid=='') $sessid=$_SESSION['sessid'];
-        $User = new User();
-        $User->update(['sessid'=>''])->where('sessid', '=', $sessid)->Execute();
+        $user = User::where('sessid', $sessid)->first();
+        $user->sessid = '';
+        $user->save();
     }
 
     /**
@@ -84,8 +75,9 @@ class Auth {
      */     
     public static function active ($sessid='') {
         if ($sessid=='') $sessid=$_SESSION['sessid'];
-        $User = new User();
-        if (gettype($User->select()->where('sessid', '=', $sessid)->Execute())=='array') return true;
+        if ($sessid=='' OR $sessid==null) return false;
+        $user = User::where('sessid', $sessid)->get();
+        if ($user->count() === 1) return true;
         return false;
     }
 }

@@ -1,6 +1,8 @@
 {
     "require": {
-        "twig/twig": "1.*"
+        "twig/twig": "1.*",
+        "illuminate/database": "^5.8",
+        "illuminate/events": "^5.8"
     },
     "autoload": {
         "psr-4": {

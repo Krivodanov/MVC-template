@@ -1,7 +1,7 @@
 <?php
 namespace MVC\App\Controllers;
-use MVC\App\Models\User as Model;
 
+use MVC\App\Models\User as Model;
 /**
  * Контроллер User содержит методы обработки данных пользователя
  */
@@ -12,8 +12,6 @@ class User {
      * @return array Ассациативный массив с данными пользователя
      */
     public static function get() {
-        $User = new Model();
-        $result = $User->select()->where('sessid', '=', $_SESSION['sessid'])->Execute();
-        return $result[0];
+        return Model::where('sessid', $_SESSION['sessid'])->first();
     }
 }

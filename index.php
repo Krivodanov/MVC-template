@@ -1,18 +1,23 @@
 <?php
 require __DIR__.'/vendor/autoload.php';
 
+use MVC\App\Libraries;
 use MVC\App\Request;
 use MVC\App\Response;
 use MVC\App\Controllers\User;
 use MVC\App\Controllers\Auth;
 use MVC\App\Route;
 
+//Инициализация библиотек
+new Libraries();
+//Отправка HTTP заголовков
 Response::sendHeaders();
+//Инициализация сессии
+Response::sessionStart();
 
-session_start(['cookie_lifetime' => 6048000]); //Время хранения сессии 70 дней
-if (empty($_SESSION['sessid'])) {
-    $_SESSION['sessid']= md5($_SERVER['REMOTE_ADDR'].time()); //Генерация sessid для авторизации
-}
+Route::get('test', function (){
+   \MVC\App\Controllers\Migration::all();
+});
 
 //Стартовая страница
 Route::get('', function (){
@@ -45,8 +50,13 @@ Route::get('auth/registration', function (){
 }, [!Auth::active()]);
 //Регистрация пользователя
 Route::post('auth/registration', function (){
-    Auth::registration(Request::all());
-    Response::redirect('../home');
+    if (Auth::registration(Request::all())){
+        Response::redirect('../home');
+    } else {
+        Response::view('registration.html.twig', [
+            'title'=>'Регистрация',
+            'error'=>'Пользователь с таким email существует']);
+    }
 });
 //Завершение сессии
 Route::get('auth/logout', function (){
@@ -55,11 +65,10 @@ Route::get('auth/logout', function (){
 });
 //Домашняя страница
 Route::get('home', function (){
+    $user = User::get();
     Response::view('home.html.twig', [
         'title'=>'Личный кабинет',
-        'name'=>User::get()['name'],
-        'email'=>User::get()['email'],
-        'date'=>User::get()['create_date']]);
+        'user'=>$user]);
 }, [Auth::active()]);
 //Переадресация если сессия не активна
 Route::get('home', function (){
