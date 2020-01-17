@@ -2,7 +2,8 @@
     "require": {
         "twig/twig": "1.*",
         "illuminate/database": "^5.8",
-        "illuminate/events": "^5.8"
+        "illuminate/events": "^5.8",
+        "twbs/bootstrap": "^4.4"
     },
     "autoload": {
         "psr-4": {
