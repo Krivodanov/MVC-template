@@ -10,7 +10,7 @@ class Config
 
     const DB_DRIVER = 'mysql';
     const DB_HOST = 'localhost';
-    const DB_DATABASE = 'mvc';
+    const DB_DATABASE = 'db_mvc';
     const DB_USERNAME = 'root';
     const DB_PASSWORD = '';
     const DB_CHARSET = 'utf8';
